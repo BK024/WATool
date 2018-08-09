@@ -32,7 +32,7 @@ import pickle
 
 lastpost = None
 postclasslist = []
-
+filespecification = filespec = "F"
 class Post:
     """The class the contains the data from a real post or system message
     """
@@ -191,7 +191,7 @@ def parse_line(line):
         return  None
 
 
-WAtxt = open('WAgroepN.txt', 'r')
+WAtxt = open('WAgroep{}.txt'.format(filespec), 'r')
 
 linegen = make_line_gen(WAtxt)
 """generator object: yields every line in the WAtxt file. """
@@ -217,5 +217,5 @@ for post in postclasslist:
         tempdict[post.author] += 1
 print(tempdict.items())
 
-pickle.dump(postclasslist, open("WApostclasslist.p", "wb"))
+pickle.dump(postclasslist, open("WApostclasslist{}.p".format(filespec), "wb"))
 
