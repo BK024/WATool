@@ -106,7 +106,7 @@ for name in allnamesdict.keys():
     posemopercent = count_emos(allposts)
     posemopercdict[name] = posemopercent
     
-resultlist = [postcountdict, posemoperdict]
+resultlist = [postcountdict, posemopercdict]
 pickle.dump(resultlist, open("WAresultlist{}.p".format(filespec), "wb"))
 
 
