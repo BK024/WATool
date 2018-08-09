@@ -64,7 +64,7 @@ class Post:
         self.message += "{}".format(continuation)     
         self.edited = True
 
-WApostclasslist = pickle.load(open('WApostclasslist{}.p',format(filespec), 'rb'))
+WApostclasslist = pickle.load(open('WApostclasslist{}.p'.format(filespec), 'rb'))
 
 def extract_names(posts):
     names = {}
