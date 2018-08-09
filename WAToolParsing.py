@@ -191,7 +191,7 @@ def parse_line(line):
         return  None
 
 
-WAtxt = open('WAgroep{}.txt'.format(filespec), 'r')
+WAtxt = open('WAgroep{}.txt'.format(filespec), 'r', encoding='utf8')
 
 linegen = make_line_gen(WAtxt)
 """generator object: yields every line in the WAtxt file. """
