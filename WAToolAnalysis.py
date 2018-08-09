@@ -5,7 +5,7 @@
 
 import pickle
 
-filespec = "h"
+filespec = "F"
 
 class Post:
     """The class the contains the data from a real post or system message
