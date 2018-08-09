@@ -1,6 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-
+This module opens the dumped file with posts classes that contains all posts from
+a WhatsApp-chat text file. 
+The class is a custom class called Post and they are instantiated using the 
+WAToolParsing.py module.
+This module has two goals for now: 
+    1. To determine how much posts each 
+       participant nade in the WhatsApp-chat.
+    2. To determine how much positive and negative emoticons each participant
+       made and what percentage the positive emoticons are of the total
+       of positive and negative emoticons.
+Then store those results as dictionaries. Then place both dicts in a list
+and dump that list using pickle. So these results can be used by
+the WAView.py module to be presented to the user. 
 """
 
 import pickle
@@ -65,9 +77,7 @@ def extract_names(posts):
 def count_posts(posts, namesdict):
     for post in posts:
         namesdict[post.author] += 1
-    postcount = list(namesdict.items())
-    postcount.sort(key=lambda x: x[1], reverse=True)
-    return postcount
+    return namesdict
 
 def count_emos(posts):
     posemolist = ['😀', '😁', '😂', '😃', '😄', '😅', '😆', '😇', '😈', '😉', '😊', '😋', '😍', '😗', '😘', '😙', '😚']
@@ -83,24 +93,20 @@ def count_emos(posts):
         negcount += allmessages.count(negemo)
     if (poscount + negcount) > 0:
         percentagepos = int(poscount / ((poscount + negcount) / 100))
- 
     else:
         percentagepos = 0
-    percentagepos
-    return {"pos": poscount, "neg": negcount, "dif": poscount - negcount, "percentage pos": percentagepos}
-
+    return percentagepos
 
 allnamesdict = extract_names(WApostclasslist)
+postcountdict = count_posts(WApostclasslist, allnamesdict)
 
-postcountlist = count_posts(WApostclasslist, allnamesdict)
-
-
-
-print(postcountlist)
-
+posemopercdict = {}
 for name in allnamesdict.keys():
     allposts = [p for p in WApostclasslist if p.author == name]
-    emocount = count_emos(allposts)
-    print([name, emocount])
+    posemopercent = count_emos(allposts)
+    posemopercdict[name] = posemopercent
+    
+resultlist = [postcountdict, posemoperdict]
+pickle.dump(resultlist, open("WAresultlist{}.p".format(filespec), "wb"))
 
 
